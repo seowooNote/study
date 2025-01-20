@@ -1,6 +1,9 @@
 package com.project.ssafy.dto.user.request;
 
 import com.project.ssafy.entity.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -8,11 +11,15 @@ import java.time.LocalDateTime;
 
 @Data
 public class SignUpRequestDto {
+    @Email(regexp = "^[a-zA-Z0-9]+@[0-9a-zA-Z]+\\.[a-z]+$", message = "이메일 형식이어야 합니다.")
     private String email;
+    @Pattern(regexp = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*\\W)).{7,128}+$", message = "대소문자, 숫자, 특수문자 조합으로 8 ~ 128자리여야 합니다.")
     private String password;
+    @NotBlank(message = "이름은 공백일 수 없습니다.")
     private String name;
-    private Character gender;
+    @NotBlank(message = "전화번호는 공백일 수 없습니다.")
     private String phone;
+    @NotBlank(message = "닉네임은 공백일 수 없습니다.")
     private String nickname;
 
     public User toUserEntity(BCryptPasswordEncoder passwordEncoder) {
@@ -21,7 +28,6 @@ public class SignUpRequestDto {
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .name(name)
-                .gender(gender)
                 .phone(phone)
                 .nickname(nickname)
                 .createDate(LocalDateTime.now())

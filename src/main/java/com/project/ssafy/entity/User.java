@@ -21,9 +21,9 @@ public class User {
     private String email;
     private String password;
     private String name;
-    private Character gender;
     private String phone;
     private String nickname;
+    private Character gender;
     private String profile;
     private String statusMessage;
     private String height;

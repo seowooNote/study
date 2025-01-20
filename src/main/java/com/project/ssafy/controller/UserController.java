@@ -4,6 +4,7 @@ import com.project.ssafy.dto.user.request.SendOneRequestDto;
 import com.project.ssafy.dto.user.request.SignUpRequestDto;
 import com.project.ssafy.service.UserService;
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
@@ -50,7 +51,7 @@ public class UserController {
 
     // 일반 사용자 회원가입
     @PostMapping("/sign-up")
-    public ResponseEntity<?> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<?> signUp(@RequestBody @Valid SignUpRequestDto signUpRequestDto) {
         ResponseEntity<?> response = userService.signUp(signUpRequestDto);
         return response;
     }
